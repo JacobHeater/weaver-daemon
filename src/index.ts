@@ -17,6 +17,4 @@ socket.on(CONNECT, async () => {
 
   // Continue to set up other listeners.
   executeScript(socket);
-
-  console.log('Registered!');
 });

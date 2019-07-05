@@ -9,10 +9,20 @@ import {
 } from '../../../../weaver-common/src/common/events';
 import uuid from 'uuid/v4';
 import os from 'os';
+import { DaemonFileDataStore } from '../../common/datemon-file-data-store';
 
 export async function register(socket: SocketIOClient.Socket): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    const client = new Client(uuid());
+    let clientId = DaemonFileDataStore.Instance.get<string>('clientId');
+
+    if (!clientId) {
+      clientId = uuid();
+
+      DaemonFileDataStore.Instance.set('clientId', clientId);
+      DaemonFileDataStore.Instance.save();
+    }
+
+    const client = new Client(clientId);
     const request = new RegistrationRequest(client.id);
   
     client.computerName = getComputerName();

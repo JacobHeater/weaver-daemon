@@ -3,25 +3,24 @@ import { RegistrationResponse } from '../../../../weaver-common/src/operations/r
 import { Client } from '../../../../weaver-common/src/common/client';
 import { StatusCodes } from '../../../../weaver-common/src/enums/status-codes';
 import { getComputerName, getUserName } from '../../../../weaver-common/src/helpers/system-helpers';
+import {
+  REGISTER,
+  POST_REGISTER
+} from '../../../../weaver-common/src/common/events';
 import uuid from 'uuid/v4';
 import os from 'os';
 
-export const events = {
-  register: 'register',
-  postRegister: 'post-register'
-};
-
 export async function register(socket: SocketIOClient.Socket): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    const request = new RegistrationRequest();
     const client = new Client(uuid());
+    const request = new RegistrationRequest(client.id);
   
     client.computerName = getComputerName();
     client.userPrincipalName = getUserName();
   
     request.data = client;
     
-    socket.on(events.postRegister, (response: RegistrationResponse) => {
+    socket.on(POST_REGISTER, (response: RegistrationResponse) => {
       if (response.status == StatusCodes.Success) {
         resolve();
       } else {
@@ -29,6 +28,6 @@ export async function register(socket: SocketIOClient.Socket): Promise<void> {
       }
     });
   
-    socket.emit(events.register, request);
+    socket.emit(REGISTER, request);
   });
 };

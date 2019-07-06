@@ -62,3 +62,4 @@ typings/
 bin/
 dist/
 daemonfile.json
+.DS_Store

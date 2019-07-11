@@ -1,5 +1,5 @@
 export class Configuration {
-  public backend: Backend;
+  backend: Backend;
 };
 
 class Backend {

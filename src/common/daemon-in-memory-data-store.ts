@@ -7,5 +7,5 @@ export class DaemonInMemoryDataStore extends InMemoryDataStore {
     super();
   }
 
-  public static Instance: DaemonInMemoryDataStore = new DaemonInMemoryDataStore();
+  static Instance: DaemonInMemoryDataStore = new DaemonInMemoryDataStore();
 };

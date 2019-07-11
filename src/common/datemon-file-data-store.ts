@@ -4,8 +4,8 @@ import {
 
 export class DaemonFileDataStore extends FileDataStore {
   private constructor() {
-    super('./daemonfile.json', true);
+    super('./weaverfile.json', true);
   }
 
-  public static Instance: DaemonFileDataStore = new DaemonFileDataStore();
+  static Instance: DaemonFileDataStore = new DaemonFileDataStore();
 };

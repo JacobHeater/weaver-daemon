@@ -61,5 +61,5 @@ typings/
 .next
 bin/
 dist/
-daemonfile.json
+weaverfile.json
 .DS_Store
